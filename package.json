@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "abel@mit.edu",
   "license": "MIT",
@@ -15,5 +16,8 @@
     "express": "^4.16.3",
     "lowdb": "^1.0.0",
     "mongodb": "^3.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
