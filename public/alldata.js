@@ -1,5 +1,6 @@
 function AllData(){
-    const [data, setData] = React.useState('');    
+    const [data, setData] = React.useState('');
+    const ctx = React.useContext(UserContext);
 
     React.useEffect(() => {
         
@@ -16,5 +17,6 @@ function AllData(){
     return (<>
         <h5>All Data in Store:</h5>
         {data}
+        {JSON.stringify(ctx)}
     </>);
 }
