@@ -1,6 +1,6 @@
 function Login(){
   const [show, setShow]     = React.useState(true);
-  const [status, setStatus] = React.useState('');    
+  const [status, setStatus] = React.useState('');
 
   return (
     <Card
@@ -28,6 +28,7 @@ function LoginMsg(props){
 function LoginForm(props){
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
+  const ctx = React.useContext(UserContext);
 
   function handle(){
     fetch(`/account/login/${email}/${password}`)
@@ -38,6 +39,7 @@ function LoginForm(props){
             props.setStatus('');
             props.setShow(false);
             console.log('JSON:', data);
+            ctx.loggedInId = data._id;
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);
