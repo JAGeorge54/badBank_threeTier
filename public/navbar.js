@@ -1,4 +1,15 @@
 function NavBar(){
+  const [show, setShow]     = React.useState(true);
+  const ctx = React.useContext(UserContext);
+  const {loggedInId, loggedIn} = ctx
+
+  // useEffect(() => {
+  //   if(loggedIn) {
+  //     setShow(true)
+  //   }
+  // }, [])
+  
+
   return(
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -25,7 +36,12 @@ function NavBar(){
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#/alldata/">AllData</a>
-          </li>          
+          </li>      
+          { !show ? <li className="nav-item">
+            <a className="nav-link" href="#/alldata/">Login</a>
+          </li> : <li className="nav-item">
+            <a className="nav-link" href="#/alldata/">Logout</a>
+          </li>}        
         </ul>
       </div>
     </nav>
