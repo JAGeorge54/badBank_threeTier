@@ -3,11 +3,7 @@ const { useEffect, useState } = React;
 function NavBar({}){
   const ctx = React.useContext(UserContext);
   const [show, setShow] = React.useState(!ctx[2].logIn)
-  console.log(ctx[2].logIn)
-  console.log(show)
-
-  console.log(ctx)
-
+  
   React.useEffect(() => {
     if (ctx[2].logIn) {
       setShow(false)
