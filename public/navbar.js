@@ -15,6 +15,10 @@ function NavBar({}){
       setShow(true)
     }
   },[ctx[2].logIn])
+
+  function logout () {
+    ctx[3].setlogIn(false)
+  }
   
 
   return(
@@ -47,7 +51,7 @@ function NavBar({}){
           { show ? <li className="nav-item">
             <a className="nav-link" href="#/login/">Login</a>
           </li> : <li className="nav-item">
-            <a className="nav-link" href="#/alldata/">Logout</a>
+            <a className="nav-link" href="#/login/" onClick={logout}>Logout</a>
           </li>}        
         </ul>
       </div>
