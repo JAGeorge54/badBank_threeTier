@@ -1,11 +1,12 @@
 function Balance(){
   const [show, setShow]     = React.useState(true);
-  const [status, setStatus] = React.useState('');  
+  const [status, setStatus] = React.useState('');
+  const ctx = React.useContext(UserContext);
 
   return (
     <Card
       bgcolor="info"
-      header="Balance"
+      header={`Balance for ${ctx[0].user.email}`}
       status={status}
       body={show ?
         <BalanceForm setShow={setShow} setStatus={setStatus}/> :
@@ -30,8 +31,9 @@ function BalanceMsg(props){
 }
 
 function BalanceForm(props){
+  const ctx = React.useContext(UserContext);
   const [email, setEmail]   = React.useState('');
-  const [balance, setBalance] = React.useState('');  
+  const [balance, setBalance] = React.useState(ctx[4].userBal.balance);  
 
   function handle(){
     fetch(`/account/findOne/${email}`)
@@ -52,18 +54,8 @@ function BalanceForm(props){
 
   return (<>
 
-    Email<br/>
-    <input type="input" 
-      className="form-control" 
-      placeholder="Enter email" 
-      value={email} 
-      onChange={e => setEmail(e.currentTarget.value)}/><br/>
-
-    <button type="submit" 
-      className="btn btn-light" 
-      onClick={handle}>
-        Check Balance
-    </button>
+    Balance<br/>
+    {ctx[0].user ? ctx[4].userBal.balance : 'not logged in'}<br/>
 
   </>);
 }
