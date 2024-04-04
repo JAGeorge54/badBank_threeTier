@@ -1,11 +1,13 @@
 function Deposit(){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');  
+  const ctx = React.useContext(UserContext);
+  console.log(ctx[0].user)
 
   return (
     <Card
       bgcolor="warning"
-      header="Deposit"
+      header={`Deposit ${ctx[0].user}`}
       status={status}
       body={show ? 
         <DepositForm setShow={setShow} setStatus={setStatus}/> :
@@ -41,6 +43,7 @@ function DepositForm(props){
             props.setStatus(JSON.stringify(data.value));
             props.setShow(false);
             console.log('JSON:', data);
+            // console.log(ctx[0].user);
         } catch(err) {
             props.setStatus('Deposit failed')
             console.log('err:', text);
