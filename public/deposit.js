@@ -7,7 +7,7 @@ function Deposit(){
   return (
     <Card
       bgcolor="warning"
-      header={`Deposit ${ctx[0].user}`}
+      header={`Deposit for ${ctx[0].user}`}
       status={status}
       body={show ? 
         <DepositForm setShow={setShow} setStatus={setStatus}/> :
