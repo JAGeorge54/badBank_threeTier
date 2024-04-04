@@ -26,9 +26,9 @@ function LoginMsg(props){
 }
 
 function LoginForm(props){
+  const ctx = React.useContext(UserContext);
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
-  const ctx = React.useContext(UserContext);
 
   function handle(){
     fetch(`/account/login/${email}/${password}`)
@@ -39,7 +39,7 @@ function LoginForm(props){
             props.setStatus('');
             props.setShow(false);
             console.log('JSON:', data);
-            ctx.loggedInId = data._id;
+            ctx[3].setlogIn(true)
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);
