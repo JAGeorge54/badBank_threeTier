@@ -14,6 +14,8 @@ function NavBar({}){
 
   function logout () {
     ctx[3].setlogIn(false)
+    ctx[1].idUser('')
+    ctx[5].balanceUser(0)
   }
   
 
