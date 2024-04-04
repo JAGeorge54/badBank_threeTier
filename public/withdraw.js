@@ -1,11 +1,12 @@
 function Withdraw(){
   const [show, setShow]     = React.useState(true);
-  const [status, setStatus] = React.useState('');  
+  const [status, setStatus] = React.useState('');
+  const ctx = React.useContext(UserContext);
 
   return (
     <Card
       bgcolor="success"
-      header="Withdraw"
+      header={`Withdraw for ${ctx[0].user.email}`}
       status={status}
       body={show ? 
         <WithdrawForm setShow={setShow} setStatus={setStatus}/> :
@@ -29,7 +30,8 @@ function WithdrawMsg(props){
 }
 
 function WithdrawForm(props){
-  const [email, setEmail]   = React.useState('');
+  const ctx = React.useContext(UserContext);
+  const [email, setEmail]   = React.useState(ctx[0].user.email);
   const [amount, setAmount] = React.useState('');
 
   function handle(){
@@ -41,6 +43,7 @@ function WithdrawForm(props){
             props.setStatus(JSON.stringify(data.value));
             props.setShow(false);
             console.log('JSON:', data);
+            ctx[5].balanceUser(data.value.balance)
         } catch(err) {
             props.setStatus('Deposit failed')
             console.log('err:', text);
@@ -51,12 +54,8 @@ function WithdrawForm(props){
 
   return(<>
 
-    Email<br/>
-    <input type="input" 
-      className="form-control" 
-      placeholder="Enter email" 
-      value={email} 
-      onChange={e => setEmail(e.currentTarget.value)}/><br/>
+    Balance<br/>
+    {ctx[0].user ? ctx[4].userBal.balance : 'not logged in'}<br/>
 
     Amount<br/>
     <input type="number" 
