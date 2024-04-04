@@ -40,7 +40,8 @@ function LoginForm(props){
             props.setShow(false);
             console.log('JSON:', data);
             ctx[3].setlogIn(true)
-            ctx[1].idUser(data.email)
+            ctx[1].idUser(data)
+            ctx[5].balanceUser(data.balance)
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);
