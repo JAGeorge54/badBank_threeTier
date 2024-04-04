@@ -1,15 +1,19 @@
 function Spa() {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState('');
 const [loggedIn, setLoggedIn] = React.useState(false);
 
 function setlogIn (log) {
   setLoggedIn(log)
 }
 
+function idUser (user) {
+  setUser(user)
+}
+
   return (
     <HashRouter>
       <div>
-      <UserContext.Provider value={[{user: user}, {setUser: setUser}, {logIn: loggedIn}, {setlogIn: setlogIn}]}>
+      <UserContext.Provider value={[{user: user}, {idUser: idUser}, {logIn: loggedIn}, {setlogIn: setlogIn}]}>
         <NavBar />        
           <div className="container" style={{padding: "20px"}}>
             <Route path="/" exact component={Home} />
