@@ -1,13 +1,20 @@
-function NavBar(){
-  const [show, setShow]     = React.useState(true);
-  const ctx = React.useContext(UserContext);
-  const {loggedInId, loggedIn} = ctx
+const { useEffect, useState } = React;
 
-  // useEffect(() => {
-  //   if(loggedIn) {
-  //     setShow(true)
-  //   }
-  // }, [])
+function NavBar({}){
+  const ctx = React.useContext(UserContext);
+  const [show, setShow] = React.useState(!ctx[2].logIn)
+  console.log(ctx[2].logIn)
+  console.log(show)
+
+  console.log(ctx)
+
+  React.useEffect(() => {
+    if (ctx[2].logIn) {
+      setShow(false)
+    } else {
+      setShow(true)
+    }
+  },[ctx[2].logIn])
   
 
   return(
@@ -37,8 +44,8 @@ function NavBar(){
           <li className="nav-item">
             <a className="nav-link" href="#/alldata/">AllData</a>
           </li>      
-          { !show ? <li className="nav-item">
-            <a className="nav-link" href="#/alldata/">Login</a>
+          { show ? <li className="nav-item">
+            <a className="nav-link" href="#/login/">Login</a>
           </li> : <li className="nav-item">
             <a className="nav-link" href="#/alldata/">Logout</a>
           </li>}        
