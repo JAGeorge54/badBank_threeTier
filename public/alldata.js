@@ -23,6 +23,7 @@ function AllData(){
                         <li>Email: {user.email}</li>
                         <li>Password: {user.password}</li>
                         <li>Balance: {user.balance}</li>
+                        <li>Role: {user.role}</li>
                     </ul>
                 </div>
             )
