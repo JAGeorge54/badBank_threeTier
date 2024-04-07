@@ -62,6 +62,9 @@ function CreateForm(props){
       value={password} 
       onChange={e => setPassword(e.currentTarget.value)}/><br/>
 
+      Admin<br/>
+      <input type='checkbox' id='admin' name='admin'></input><br/>
+
     <button type="submit" 
       className="btn btn-light" 
       onClick={handle}>Create Account</button>
