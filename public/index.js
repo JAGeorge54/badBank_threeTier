@@ -2,6 +2,7 @@ function Spa() {
   const [user, setUser] = React.useState({email: ''});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userBal, setUserBal] = React.useState({balance: 0});
+  const [admin, setAdmin] = React.useState(false);
 
 function setlogIn (log) {
   setLoggedIn(log)
@@ -15,10 +16,14 @@ function balanceUser (balance) {
   setUserBal({...userBal, balance: balance})
 }
 
+function makeAdmin (role) {
+  setAdmin(role)
+}
+
   return (
     <HashRouter>
       <div>
-      <UserContext.Provider value={[{user: user}, {idUser: idUser}, {logIn: loggedIn}, {setlogIn: setlogIn}, {userBal: userBal}, {balanceUser: balanceUser}]}>
+      <UserContext.Provider value={[{user: user}, {idUser: idUser}, {logIn: loggedIn}, {setlogIn: setlogIn}, {userBal: userBal}, {balanceUser: balanceUser}, {admin: admin}, {makeAdmin: makeAdmin}]}>
         <NavBar />        
           <div className="container" style={{padding: "20px"}}>
             <Route path="/" exact component={Home} />
