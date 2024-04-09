@@ -1,16 +1,14 @@
 function Balance(){
-  const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');
   const ctx = React.useContext(UserContext);
 
   return (
     <Card
       bgcolor="info"
-      header={`Balance for ${ctx[0].user.email}`}
-      status={status}
-      body={show ?
-        <BalanceForm setShow={setShow} setStatus={setStatus}/> :
-        <BalanceMsg setShow={setShow} setStatus={setStatus}/>}
+      header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Please Log In to view your balance'}
+      body={
+      <BalanceForm setStatus={setStatus}/>
+    }
     />
   )
 
@@ -32,30 +30,61 @@ function BalanceMsg(props){
 
 function BalanceForm(props){
   const ctx = React.useContext(UserContext);
-  const [email, setEmail]   = React.useState('');
-  const [balance, setBalance] = React.useState(ctx[4].userBal.balance);  
+  const [show, setShow]     = React.useState(true);
+  const [email, setEmail]   = React.useState(ctx[0].user.email);
+  const [balance, setBalance] = React.useState([]);  
 
-  function handle(){
+  React.useEffect(() => {
     fetch(`/account/findOne/${email}`)
     .then(response => response.text())
     .then(text => {
         try {
             const data = JSON.parse(text);
             props.setStatus(text);
-            props.setShow(false);
-            setBalance(user.balance);
             console.log('JSON:', data);
+            setBalance(data.transactions)
+            console.log(data)
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);
         }
     });
+  },[])
+  const display = () => {
+    if (show === true) {
+      setShow(false)
+    } else setShow(true)
+  }
+
+  const Transactions = () => {
+    if (!ctx[2].logIn) {
+      return <p>not logged in</p>
+    }
+    const History = () => {
+      const log = balance.map((item, i) => {
+        return <li key={i}>{item}</li>
+      })
+      return (
+        <ul>
+          {log}
+        </ul>
+      )
+    }
+    return (<> 
+    <History />
+    </>
+    )
   }
 
   return (<>
-
     Balance<br/>
-    {ctx[0].user ? ctx[0].user.balance : 'not logged in'}<br/>
+    {ctx[2].logIn ? `$ ${ctx[0].user.balance}` : '$0'}<br/><br/>
+
+    
+
+    Past Transactions<br/>
+    {!show && <Transactions />}
+    <button className="btn btn-light" disabled={!ctx[2].logIn} onClick={() => display()}>{show ? 'show transactions' : 'hide transactions'}</button><br/>
 
   </>);
 }

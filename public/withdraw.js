@@ -6,7 +6,7 @@ function Withdraw(){
   return (
     <Card
       bgcolor="success"
-      header={`Withdraw for ${ctx[0].user.email}`}
+      header={ctx[2].logIn ? `Withdraw ${ctx[0].user.email}` : 'Please Log In to make a withdraw'}
       status={status}
       body={show ? 
         <WithdrawForm setShow={setShow} setStatus={setStatus}/> :
@@ -40,7 +40,7 @@ function WithdrawForm(props){
     .then(text => {
         try {
             const data = JSON.parse(text);
-            props.setStatus(JSON.stringify(data.value));
+            props.setStatus(<h3>${amount} was withdrawn</h3>);
             props.setShow(false);
             console.log('JSON:', data);
             ctx[5].balanceUser(data.value.balance)
@@ -55,7 +55,7 @@ function WithdrawForm(props){
   return(<>
 
     Balance<br/>
-    {ctx[0].user ? ctx[0].user.balance : 'not logged in'}<br/>
+    {ctx[2].logIn ? `$ ${ctx[0].user.balance}` : '$0'}<br/><br/>
 
     Amount<br/>
     <input type="number" 

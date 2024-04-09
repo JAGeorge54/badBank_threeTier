@@ -8,7 +8,7 @@ function Deposit(){
   return (
     <Card
       bgcolor="warning"
-      header={`Deposit for ${ctx[0].user.email}`}
+      header={ctx[2].logIn ? `Deposit ${ctx[0].user.email}` : 'Please Log In to make a deposit'}
       status={status}
       body={show ? 
         <DepositForm setShow={setShow} setStatus={setStatus}/> :
@@ -44,7 +44,7 @@ function DepositForm(props){
     .then(text => {
         try {
             const data = JSON.parse(text);
-            props.setStatus(JSON.stringify(data.value));
+            props.setStatus(<h3>${amount} was withdrawn</h3>);
             props.setShow(false);
             console.log('JSON:', data);
             ctx[5].balanceUser(data.value.balance)
@@ -59,7 +59,7 @@ function DepositForm(props){
   return(<>
 
     Balance<br/>
-    {ctx[0].user ? ctx[0].user.balance : 'not logged in'}<br/>
+    {ctx[2].logIn ? `$ ${ctx[0].user.balance}` : '$0'}<br/><br/>
       
     Amount<br/>
     <input type="number" 
