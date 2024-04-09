@@ -84,7 +84,7 @@ function BalanceForm(props){
 
     Past Transactions<br/>
     {!show && <Transactions />}
-    <button disabled={!ctx[2].logIn} onClick={() => display()}>{show ? 'show transactions' : 'hide transactions'}</button><br/>
+    <button className="btn btn-light" disabled={!ctx[2].logIn} onClick={() => display()}>{show ? 'show transactions' : 'hide transactions'}</button><br/>
 
   </>);
 }
