@@ -1,5 +1,9 @@
 function AllData(){
-    const [data, setData] = React.useState([]);    
+    const ctx = React.useContext(UserContext);
+    const [data, setData] = React.useState([]); 
+    const [show, setShow] = React.useState(false);
+    const [user, setUser] = React.useState(null);
+    console.log(ctx[0].user)
 
     React.useEffect(() => {
         
@@ -8,12 +12,18 @@ function AllData(){
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setData(data);             
+                setData(data);
+                setShow(ctx[6].admin)
+                function isUser (item) {
+                    return item.email === ctx[0].user.email
+                }
+                setUser(data.find(isUser))
+                
             });
 
     }, []);
 
-    function Cards () {
+    const Cards = () => {
         const card = data.map((user, i) => {
             return (
                 <div key={i} className='card'>
@@ -31,11 +41,31 @@ function AllData(){
         return card
     }
 
-
+    const Card = () => {
+        if(!ctx[2].logIn) {
+            return <h1>Please Log In</h1>
+        } else {
+            return(
+                <div className='card'>
+                    <h1 className='card-header'>{ctx[0].user.name}</h1>
+                    <ul>
+                        <li>User ID: {ctx[0].user._id}</li>
+                        <li>Email: {ctx[0].user.email}</li>
+                        <li>Password: {ctx[0].user.password}</li>
+                        <li>Balance: {ctx[0].user.balance}</li>
+                        <li>Role: {ctx[0].user.role}</li>
+                    </ul>
+                </div>
+            )
+        }
+    }
 
     return (<>
         <h5>All Data in Store:</h5>
         {/* {JSON.stringify(data)} */}
-        <Cards />
+        {/* <Cards /> */}
+        {show ? 
+        <Cards /> :
+        <Card />}
     </>);
 }
