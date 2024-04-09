@@ -5,7 +5,7 @@ function Balance(){
   return (
     <Card
       bgcolor="info"
-      header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Not Logged In'}
+      header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Please Log In to view your balance'}
       body={
       <BalanceForm setStatus={setStatus}/>
     }
@@ -77,14 +77,14 @@ function BalanceForm(props){
   }
 
   return (<>
-
     Balance<br/>
-    {ctx[2].logIn ? ctx[0].user.balance : 'Not Logged In'}<br/>
+    {ctx[2].logIn ? `$ ${ctx[0].user.balance}` : '$0'}<br/><br/>
 
-    <button disabled={!ctx[2].logIn} onClick={() => display()}>{show ? 'show transactions' : 'hide transactions'}</button><br/>
+    
 
-    Transactions<br/>
+    Past Transactions<br/>
     {!show && <Transactions />}
+    <button disabled={!ctx[2].logIn} onClick={() => display()}>{show ? 'show transactions' : 'hide transactions'}</button><br/>
 
   </>);
 }
