@@ -6,7 +6,7 @@ function Balance(){
   return (
     <Card
       bgcolor="info"
-      header={`Balance for ${ctx[0].user.email}`}
+      header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Not Logged In'}
       status={status}
       body={show ?
         <BalanceForm setShow={setShow} setStatus={setStatus}/> :
@@ -52,10 +52,26 @@ function BalanceForm(props){
     });
   }
 
+  const Transactions = () => {
+    return (<> 
+    <h1>test transactions</h1>
+      <h1>test transactions</h1>
+      <h1>test transactions</h1>
+      <h1>test transactions</h1>
+      <h1>test transactions</h1>
+    </>
+    )
+  }
+
   return (<>
 
     Balance<br/>
-    {ctx[0].user ? ctx[0].user.balance : 'not logged in'}<br/>
+    {ctx[2].logIn ? ctx[0].user.balance : 'Not Logged In'}<br/>
+
+    Transactions<br/>
+    {ctx[2].logIn ?
+    <Transactions /> :
+    'Not Logged In'}<br/>
 
   </>);
 }
