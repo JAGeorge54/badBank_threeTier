@@ -64,7 +64,8 @@ function update(email, amount){
             .collection('users')            
             .findOneAndUpdate(
                 {email: email},
-                { $inc: { balance: amount}},
+                { $inc: { balance: amount},
+                $push: { transactions: amount }},
                 { returnOriginal: false },
                 function (err, documents) {
                     err ? reject(err) : resolve(documents);
