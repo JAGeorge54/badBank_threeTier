@@ -6,7 +6,6 @@ function Balance(){
     <Card
       bgcolor="info"
       header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Not Logged In'}
-      status={status}
       body={
       <BalanceForm setStatus={setStatus}/>
     }
@@ -33,8 +32,7 @@ function BalanceForm(props){
   const ctx = React.useContext(UserContext);
   const [show, setShow]     = React.useState(true);
   const [email, setEmail]   = React.useState(ctx[0].user.email);
-  const [balance, setBalance] = React.useState({});  
-  console.log(email)
+  const [balance, setBalance] = React.useState([]);  
 
   React.useEffect(() => {
     fetch(`/account/findOne/${email}`)
@@ -44,7 +42,7 @@ function BalanceForm(props){
             const data = JSON.parse(text);
             props.setStatus(text);
             console.log('JSON:', data);
-            setBalance(data)
+            setBalance(data.transactions)
             console.log(data)
         } catch(err) {
             props.setStatus(text)
@@ -62,12 +60,18 @@ function BalanceForm(props){
     if (!ctx[2].logIn) {
       return <p>not logged in</p>
     }
+    const History = () => {
+      const log = balance.map((item, i) => {
+        return <li key={i}>{item}</li>
+      })
+      return (
+        <ul>
+          {log}
+        </ul>
+      )
+    }
     return (<> 
-    <h1>test transactions</h1>
-      <h1>{balance.email}</h1>
-      <h1>test transactions</h1>
-      <h1>test transactions</h1>
-      <h1>test transactions</h1>
+    <History />
     </>
     )
   }
