@@ -41,7 +41,12 @@ function LoginForm(props){
             console.log('JSON:', data);
             ctx[3].setlogIn(true)
             ctx[1].idUser(data)
-            ctx[5].balanceUser(data.balance)
+            // ctx[5].balanceUser(data.balance)
+            if (data.role === 'admin') {
+              ctx[7].makeAdmin(true)
+            } else {
+              ctx[7].makeAdmin(false)
+            }
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);

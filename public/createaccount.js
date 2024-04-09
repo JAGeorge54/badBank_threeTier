@@ -8,7 +8,7 @@ function CreateAccount(){
       header="Create Account"
       status={status}
       body={show ? 
-        <CreateForm setShow={setShow}/> : 
+        <CreateForm setShow={setShow} setStatus={setStatus}/> : 
         <CreateMsg setShow={setShow}/>}
     />
   )
@@ -27,10 +27,26 @@ function CreateForm(props){
   const [name, setName]         = React.useState('');
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [role, setRole] = React.useState(null);
+
+  function radioSelect(e) {
+    if (e.target.value == null) {
+      setRole("normal")
+    } else {
+      setRole(e.target.value)
+    }
+  }
 
   function handle(){
-    console.log(name,email,password);
-    const url = `/account/create/${name}/${email}/${password}`;
+    if (role == null) {
+      props.setStatus('Please select a role')
+      setTimeout(() => {
+        props.setStatus('')
+      }, 3000)
+      return;
+    }
+    console.log(name,email,password,role);
+    const url = `/account/create/${name}/${email}/${password}/${role}`;
     (async () => {
         var res  = await fetch(url);
         var data = await res.json();    
@@ -61,6 +77,20 @@ function CreateForm(props){
       placeholder="Enter password" 
       value={password} 
       onChange={e => setPassword(e.currentTarget.value)}/><br/>
+
+      <fieldset>
+        <legend>Select role:</legend>
+
+        <div>
+          <input type="radio" id="normal" name="userType" value="normal" onChange={radioSelect}/>
+          <label htmlFor="normal">Normal User</label>
+        </div>
+
+        <div>
+          <input type="radio" id="admin" name="userType" value="admin" onChange={radioSelect}/>
+          <label htmlFor="admin">Admin</label>
+        </div>
+      </fieldset>
 
     <button type="submit" 
       className="btn btn-light" 

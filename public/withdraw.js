@@ -55,7 +55,7 @@ function WithdrawForm(props){
   return(<>
 
     Balance<br/>
-    {ctx[0].user ? ctx[4].userBal.balance : 'not logged in'}<br/>
+    {ctx[0].user ? ctx[0].user.balance : 'not logged in'}<br/>
 
     Amount<br/>
     <input type="number" 

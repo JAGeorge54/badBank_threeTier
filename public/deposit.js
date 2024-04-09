@@ -33,6 +33,7 @@ function DepositMsg(props){
 
 function DepositForm(props){
   const ctx = React.useContext(UserContext);
+  console.log(ctx[0].user.email)
   const [email, setEmail]   = React.useState(ctx[0].user.email);
   const [amount, setAmount] = React.useState('');
   // const [balance, setBalance] =React.useState(ctx[0].user.balance);
@@ -58,7 +59,7 @@ function DepositForm(props){
   return(<>
 
     Balance<br/>
-    {ctx[0].user ? ctx[4].userBal.balance : 'not logged in'}<br/>
+    {ctx[0].user ? ctx[0].user.balance : 'not logged in'}<br/>
       
     Amount<br/>
     <input type="number" 
