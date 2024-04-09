@@ -27,7 +27,7 @@ MongoClient.connect(connectionURL,{
 function create(name, email, password,role){
     return new Promise((resolve, reject) => {    
         const collection = db.collection('users');
-        const doc = {name, email, password, balance: 0, role};
+        const doc = {name, email, password, balance: 0, role, transactions: []};
         collection.insertOne(doc, {w:1}, function(err, result) {
             err ? reject(err) : resolve(doc);
         });    
