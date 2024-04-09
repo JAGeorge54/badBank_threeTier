@@ -1,5 +1,4 @@
 function Balance(){
-  const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');
   const ctx = React.useContext(UserContext);
 
@@ -8,9 +7,9 @@ function Balance(){
       bgcolor="info"
       header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Not Logged In'}
       status={status}
-      body={show ?
-        <BalanceForm setShow={setShow} setStatus={setStatus}/> :
-        <BalanceMsg setShow={setShow} setStatus={setStatus}/>}
+      body={
+      <BalanceForm setStatus={setStatus}/>
+    }
     />
   )
 
@@ -32,30 +31,40 @@ function BalanceMsg(props){
 
 function BalanceForm(props){
   const ctx = React.useContext(UserContext);
-  const [email, setEmail]   = React.useState('');
-  const [balance, setBalance] = React.useState(ctx[4].userBal.balance);  
+  const [show, setShow]     = React.useState(true);
+  const [email, setEmail]   = React.useState(ctx[0].user.email);
+  const [balance, setBalance] = React.useState({});  
+  console.log(email)
 
-  function handle(){
+  React.useEffect(() => {
     fetch(`/account/findOne/${email}`)
     .then(response => response.text())
     .then(text => {
         try {
             const data = JSON.parse(text);
             props.setStatus(text);
-            props.setShow(false);
-            setBalance(user.balance);
             console.log('JSON:', data);
+            setBalance(data)
+            console.log(data)
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);
         }
     });
+  },[])
+  const display = () => {
+    if (show === true) {
+      setShow(false)
+    } else setShow(true)
   }
 
   const Transactions = () => {
+    if (!ctx[2].logIn) {
+      return <p>not logged in</p>
+    }
     return (<> 
     <h1>test transactions</h1>
-      <h1>test transactions</h1>
+      <h1>{balance.email}</h1>
       <h1>test transactions</h1>
       <h1>test transactions</h1>
       <h1>test transactions</h1>
@@ -68,10 +77,10 @@ function BalanceForm(props){
     Balance<br/>
     {ctx[2].logIn ? ctx[0].user.balance : 'Not Logged In'}<br/>
 
+    <button disabled={!ctx[2].logIn} onClick={() => display()}>{show ? 'show transactions' : 'hide transactions'}</button><br/>
+
     Transactions<br/>
-    {ctx[2].logIn ?
-    <Transactions /> :
-    'Not Logged In'}<br/>
+    {!show && <Transactions />}
 
   </>);
 }
