@@ -44,7 +44,7 @@ function DepositForm(props){
     .then(text => {
         try {
             const data = JSON.parse(text);
-            props.setStatus(<h3>${amount} was withdrawn</h3>);
+            props.setStatus(<h3>${amount} was deposited</h3>);
             props.setShow(false);
             console.log('JSON:', data);
             ctx[5].balanceUser(data.value.balance)
