@@ -24,11 +24,14 @@ app.get('/account/create/:name/:email/:password/:role', function (req, res) {
             }
             else{
                 // else create user
-                dal.create(req.params.name,req.params.email,req.params.password,req.params.role).
+                bcrypt.hash(req.params.password, saltRounds).then(function(hash) {
+                    dal.create(req.params.name,req.params.email,hash,req.params.role).
                     then((user) => {
                         console.log(user);
                         res.send(user);            
-                    });            
+                    }); 
+                });
+                           
             }
 
         });
