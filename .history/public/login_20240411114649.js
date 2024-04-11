@@ -48,7 +48,7 @@ function LoginForm(props){
             } else {
               ctx[7].makeAdmin(false)
             }
-            window.location.replace('#/balance/');
+            window.location.href = '#/balance/';
         } catch(err) {
             props.setStatus(text)
             console.log('err:', text);
