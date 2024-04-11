@@ -1,16 +1,13 @@
-//main application function
 function Spa() {
   const [user, setUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userBal, setUserBal] = React.useState({balance: 0});
   const [admin, setAdmin] = React.useState(false);
 
-  //sets logged in when user logs in
 function setlogIn (log) {
-  setLoggedIn(log);
+  setLoggedIn(log)
 }
 
-//sets user when user logs in
 function idUser (data) {
   setUser({...user,
     id: data._id,
@@ -19,17 +16,15 @@ function idUser (data) {
     password: data.password,
     balance: data.balance,
     role: data.role
-  });
+  })
 }
 
-//set user balance when logged in or when balance changes
 function balanceUser (balance) {
-  setUser({...user, balance: balance});
+  setUser({...user, balance: balance})
 }
 
-//set admin role when user logs in
 function makeAdmin (role) {
-  setAdmin(role);
+  setAdmin(role)
 }
 
   return (
