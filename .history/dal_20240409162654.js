@@ -1,7 +1,7 @@
 const mongodb = require("mongodb");
 require('dotenv').config()
 
-//connects to database
+
 const connectionURL = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PWD}@badbank.3o9zmts.mongodb.net/?retryWrites=true&w=majority&appName=badbank`
 const dbName = "myproject"
 
@@ -27,7 +27,7 @@ MongoClient.connect(connectionURL,{
 function create(name, email, password,role){
     return new Promise((resolve, reject) => {    
         const collection = db.collection('users');
-        const doc = {name, email, password, balance: 0, role, transactions: []};//added role and transactions to database
+        const doc = {name, email, password, balance: 0, role, transactions: []};
         collection.insertOne(doc, {w:1}, function(err, result) {
             err ? reject(err) : resolve(doc);
         });    
