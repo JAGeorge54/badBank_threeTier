@@ -8,7 +8,7 @@ function AllData(){
         
         // fetch all accounts from API
         fetch('/account/all')
-            .then(response => response.json())
+            .then(response => response.json());
             .then(data => {
                 console.log(data);
                 setData(data);
@@ -22,7 +22,6 @@ function AllData(){
 
     }, []);
 
-    //displays user information if normal user
     const Cards = () => {
         const card = data.map((user, i) => {
             return (
@@ -41,7 +40,6 @@ function AllData(){
         return card;
     }
 
-    //displays all user information cards if admin
     const Card = () => {
         if(!ctx[2].logIn) {
             return <h1>Please Log In</h1>

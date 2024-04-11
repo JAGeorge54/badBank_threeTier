@@ -3,6 +3,7 @@ function AllData(){
     const [data, setData] = React.useState([]); 
     const [show, setShow] = React.useState(false);
     const [user, setUser] = React.useState(null);
+    console.log(ctx[0].user)
 
     React.useEffect(() => {
         
@@ -12,17 +13,16 @@ function AllData(){
             .then(data => {
                 console.log(data);
                 setData(data);
-                setShow(ctx[6].admin);
+                setShow(ctx[6].admin)
                 function isUser (item) {
-                    return item.email === ctx[0].user.email;
+                    return item.email === ctx[0].user.email
                 }
-                setUser(data.find(isUser));
+                setUser(data.find(isUser))
                 
             });
 
     }, []);
 
-    //displays user information if normal user
     const Cards = () => {
         const card = data.map((user, i) => {
             return (
@@ -36,12 +36,11 @@ function AllData(){
                         <li>Role: {user.role}</li>
                     </ul>
                 </div>
-            );
-        });
-        return card;
+            )
+        })
+        return card
     }
 
-    //displays all user information cards if admin
     const Card = () => {
         if(!ctx[2].logIn) {
             return <h1>Please Log In</h1>
@@ -57,7 +56,7 @@ function AllData(){
                         <li>Role: {ctx[0].user.role}</li>
                     </ul>
                 </div>
-            );
+            )
         }
     }
 
