@@ -46,12 +46,15 @@ app.get('/account/login/:email/:password', function (req, res) {
             
             // if user exists, check password
             if(user.length > 0){
-                if (user[0].password === req.params.password){
-                    res.send(user[0]);
-                }
-                else{
-                    res.send('Login failed: wrong password');
-                }
+                bcrypt.compare(req.params.password, user[0].password).then(function(result) {
+                    if (result){
+                        res.send(user[0]);
+                    }
+                    else{
+                        res.send('Login failed: wrong password');
+                    }
+                });
+                
             }
             else{
                 res.send('Login failed: user not found');
