@@ -1,8 +1,9 @@
-//component function for page
 function Deposit(){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');
   const ctx = React.useContext(UserContext);
+  console.log(ctx[0].user)
+  console.log(ctx[4].userBal.balance)
 
   return (
     <Card
@@ -16,7 +17,6 @@ function Deposit(){
   )
 }
 
-//success message 
 function DepositMsg(props){
   return (<>
     <h5>Success</h5>
@@ -31,13 +31,13 @@ function DepositMsg(props){
   </>);
 } 
 
-//function for form
 function DepositForm(props){
   const ctx = React.useContext(UserContext);
+  console.log(ctx[0].user.email)
   const [email, setEmail]   = React.useState(ctx[0].user.email);
   const [amount, setAmount] = React.useState('');
+  // const [balance, setBalance] =React.useState(ctx[0].user.balance);
 
-  //function to handle form submit
   function handle(){
     fetch(`/account/update/${email}/${amount}`)
     .then(response => response.text())
@@ -47,10 +47,10 @@ function DepositForm(props){
             props.setStatus(<h3>${amount} was deposited</h3>);
             props.setShow(false);
             console.log('JSON:', data);
-            ctx[5].balanceUser(data.value.balance);
+            ctx[5].balanceUser(data.value.balance)
             console.log(data);
         } catch(err) {
-            props.setStatus('Deposit failed');
+            props.setStatus('Deposit failed')
             console.log('err:', text);
         }
     });
