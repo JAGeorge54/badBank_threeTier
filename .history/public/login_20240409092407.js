@@ -31,8 +31,7 @@ function LoginForm(props){
   const [password, setPassword] = React.useState('');
 
   function handle(){
-    const encodePassword = encodeURIComponent(password)
-    fetch(`/account/login/${email}/${encodePassword}`)
+    fetch(`/account/login/${email}/${password}`)
     .then(response => response.text())
     .then(text => {
         try {

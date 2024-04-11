@@ -24,8 +24,7 @@ app.get('/account/create/:name/:email/:password/:role', function (req, res) {
             }
             else{
                 // else create user
-                const decodePassword = decodeURIComponent(req.params.password)
-                bcrypt.hash(decodePassword, saltRounds).then(function(hash) {
+                bcrypt.hash(req.params.password, saltRounds).then(function(hash) {
                     dal.create(req.params.name,req.params.email,hash,req.params.role).
                     then((user) => {
                         console.log(user);
@@ -46,8 +45,7 @@ app.get('/account/login/:email/:password', function (req, res) {
             
             // if user exists, check password
             if(user.length > 0){
-                const decodePassword = decodeURIComponent(req.params.password)
-                bcrypt.compare(decodePassword, user[0].password).then(function(result) {
+                bcrypt.compare(req.params.password, user[0].password).then(function(result) {
                     if (result){
                         res.send(user[0]);
                     }

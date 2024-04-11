@@ -24,8 +24,7 @@ app.get('/account/create/:name/:email/:password/:role', function (req, res) {
             }
             else{
                 // else create user
-                const decodePassword = decodeURIComponent(req.params.password)
-                bcrypt.hash(decodePassword, saltRounds).then(function(hash) {
+                bcrypt.hash(req.params.password, saltRounds).then(function(hash) {
                     dal.create(req.params.name,req.params.email,hash,req.params.role).
                     then((user) => {
                         console.log(user);
