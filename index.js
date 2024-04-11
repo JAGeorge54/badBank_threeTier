@@ -3,6 +3,8 @@ var app     = express();
 var cors    = require('cors');
 var dal     = require('./dal.js');
 const e = require('express');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 // used to serve static files from public directory
 app.use(express.static('public'));
