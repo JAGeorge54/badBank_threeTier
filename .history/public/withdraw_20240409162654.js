@@ -1,4 +1,3 @@
-//component function for page
 function Withdraw(){
   const [show, setShow]     = React.useState(true);
   const [status, setStatus] = React.useState('');
@@ -16,7 +15,6 @@ function Withdraw(){
   )
 }
 
-//success message
 function WithdrawMsg(props){
   return(<>
     <h5>Success</h5>
@@ -31,13 +29,11 @@ function WithdrawMsg(props){
   </>);
 }
 
-//function for form
 function WithdrawForm(props){
   const ctx = React.useContext(UserContext);
   const [email, setEmail]   = React.useState(ctx[0].user.email);
   const [amount, setAmount] = React.useState('');
 
-  //function to handle form submit
   function handle(){
     fetch(`/account/update/${email}/-${amount}`)
     .then(response => response.text())
@@ -47,9 +43,9 @@ function WithdrawForm(props){
             props.setStatus(<h3>${amount} was withdrawn</h3>);
             props.setShow(false);
             console.log('JSON:', data);
-            ctx[5].balanceUser(data.value.balance);
+            ctx[5].balanceUser(data.value.balance)
         } catch(err) {
-            props.setStatus('Deposit failed');
+            props.setStatus('Deposit failed')
             console.log('err:', text);
         }
     });
