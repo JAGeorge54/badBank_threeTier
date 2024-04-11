@@ -6,21 +6,19 @@ function Balance(){
       bgcolor="info"
       header={ctx[2].logIn ? `Balance for ${ctx[0].user.email}` : 'Please Log In to view your balance'}
       body={
-      <BalanceForm />
+      <BalanceForm setStatus={setStatus}/>
     }
     />
   );
 
 }
 
-// function to call balance form
 function BalanceForm(props){
   const ctx = React.useContext(UserContext);
   const [show, setShow]     = React.useState(true);
   const [email, setEmail]   = React.useState(ctx[0].user.email);
   const [balance, setBalance] = React.useState([]);  
 
-  //fetches data from database on page load
   React.useEffect(() => {
     fetch(`/account/findOne/${email}`)
     .then(response => response.text())
@@ -36,14 +34,12 @@ function BalanceForm(props){
     });
   },[])
 
-  //toggle for show transactions button
   const display = () => {
     if (show === true) {
       setShow(false);
     } else setShow(true);
   }
 
-  //loops over transactions array and creates an unordered list
   const Transactions = () => {
     if (!ctx[2].logIn) {
       return <p>not logged in</p>
@@ -67,6 +63,8 @@ function BalanceForm(props){
   return (<>
     Balance<br/>
     {ctx[2].logIn ? `$ ${ctx[0].user.balance}` : '$0'}<br/><br/>
+
+    
 
     Past Transactions<br/>
     {!show && <Transactions />}
