@@ -4,16 +4,15 @@ function NavBar({}){
   const ctx = React.useContext(UserContext);
   const [show, setShow] = React.useState(!ctx[2].logIn);
   
-  //sets logged in on load and anytime it changes
+  //sets 
   React.useEffect(() => {
     if (ctx[2].logIn) {
       setShow(false);
     } else {
       setShow(true);
     }
-  },[ctx[2].logIn]);
+  },[]);
 
-  //function to log user out
   function logout () {
     ctx[3].setlogIn(false);
     ctx[1].idUser('');
