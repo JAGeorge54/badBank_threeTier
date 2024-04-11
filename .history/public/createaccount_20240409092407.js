@@ -46,8 +46,7 @@ function CreateForm(props){
       return;
     }
     console.log(name,email,password,role);
-    const encodePassword = encodeURIComponent(password)
-    const url = `/account/create/${name}/${email}/${encodePassword}/${role}`;
+    const url = `/account/create/${name}/${email}/${password}/${role}`;
     (async () => {
         var res  = await fetch(url);
         var data = await res.json();    
