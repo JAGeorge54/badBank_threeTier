@@ -1,4 +1,3 @@
-//main component function
 function Home(){
   return (<>
       <Card
@@ -8,7 +7,6 @@ function Home(){
         text="You can move around using the navigation bar."
         body={(<img src="bank.png" className="img-fluid" alt="Responsive image"/>)}
       />
-      {/* added create account buttons */}
       <form action="#/login/">
         <input className="btn btn-light" type="submit" value="Login" />
       </form>
