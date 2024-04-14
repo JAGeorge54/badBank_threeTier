@@ -40,8 +40,8 @@ function AllData(){
                     </div>
                 );
             });
-            return card;
         }
+        return card;
     }
 
     //displays all user information cards if admin

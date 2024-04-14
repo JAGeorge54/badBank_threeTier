@@ -23,25 +23,21 @@ function AllData(){
 
     //displays user information if normal user
     const Cards = () => {
-        if (!ctx[2].logIn) {
-            return <h1>Please log In</h1>
-        } else {
-            const card = data.map((user, i) => {
-                return (
-                    <div key={i} className='card'>
-                        <h1 className='card-header'>{user.name}</h1>
-                        <ul>
-                            <li>User ID: {user._id}</li>
-                            <li>Email: {user.email}</li>
-                            <li>Password: {user.password}</li>
-                            <li>Balance: {user.balance}</li>
-                            <li>Role: {user.role}</li>
-                        </ul>
-                    </div>
-                );
-            });
-            return card;
-        }
+        const card = data.map((user, i) => {
+            return (
+                <div key={i} className='card'>
+                    <h1 className='card-header'>{user.name}</h1>
+                    <ul>
+                        <li>User ID: {user._id}</li>
+                        <li>Email: {user.email}</li>
+                        <li>Password: {user.password}</li>
+                        <li>Balance: {user.balance}</li>
+                        <li>Role: {user.role}</li>
+                    </ul>
+                </div>
+            );
+        });
+        return card;
     }
 
     //displays all user information cards if admin

@@ -23,8 +23,8 @@ function AllData(){
 
     //displays user information if normal user
     const Cards = () => {
-        if (!ctx[2].logIn) {
-            return <h1>Please log In</h1>
+        if(!ctx[2].logIn) {
+            return <h1>Please Log In</h1>
         } else {
             const card = data.map((user, i) => {
                 return (
@@ -40,8 +40,8 @@ function AllData(){
                     </div>
                 );
             });
-            return card;
         }
+        return card;
     }
 
     //displays all user information cards if admin
